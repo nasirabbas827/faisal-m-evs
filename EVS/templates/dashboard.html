@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome {{ user_profile.name }} to Your Dashboard</h1>
+        <p class="lead">Make your voice heard. Cast your vote in the elections.</p>
+    </div>
+
+    <h2 class="text-center mt-4 mb-4">All Elections</h2>
+    <div class="row">
+        {% for election in elections %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">{{ election.name }}</h3>
+                    <p class="card-text">Start Date: {{ election.start_date }}</p>
+                    <p class="card-text">End Date: {{ election.end_date }}</p>
+                    <p class="card-text">Description: {{ election.description }}</p>
+                    <p class="card-text">Status: {{ election.status }}</p>
+                    <a href="{% url 'election_details' election.id %}" class="btn btn-primary">View Election Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

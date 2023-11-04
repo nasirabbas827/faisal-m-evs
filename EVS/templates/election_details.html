@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4">Election Details</h1>
+        <p class="lead">View candidates and cast your vote.</p>
+    </div>
+
+    <h2 class="text-center mt-4 mb-4">{{ election.name }}</h2>
+
+    <div class="row">
+        {% for candidate in candidates %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ candidate.image.url }}" class="card-img-top" alt="{{ candidate.name }}">
+                <div class="card-body">
+                    <h3 class="card-title">{{ candidate.name }}</h3>
+                    <p class="card-text">{{ candidate.description }}</p>
+                    <p class="card-text">Date of Birth: {{ candidate.date_of_birth }}</p>
+                    <p class="card-text">Party Affiliation: {{ candidate.party_affiliation }}</p>
+                    <p class="card-text">Experience: {{ candidate.experience }}</p>
+                    
+                    <!-- Form for voting -->
+                    <form method="post" action="{% url 'cast_vote' election.id candidate.id %}">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary" value="Vote for {{ candidate.name }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

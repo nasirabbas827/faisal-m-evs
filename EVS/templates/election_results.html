@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Election Results{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="display-4 mt-4">Election Results</h1>
+
+    {% for election_result in election_results %}
+    <div class="card mt-4">
+        <div class="card-body">
+            <h2 class="card-title">{{ election_result.election.name }}</h2>
+            <p class="card-text"><strong>Description:</strong> {{ election_result.election.description }}</p>
+            <p class="card-text"><strong>Start Date:</strong> {{ election_result.election.start_date }}</p>
+            <p class="card-text"><strong>End Date:</strong> {{ election_result.election.end_date }}</p>
+            <p class="card-text"><strong>Status:</strong> {{ election_result.election.status }}</p>
+    
+            <h3 class="mt-3">Winning Candidate(s):</h3>
+            <ul class="list-group">
+                {% for winner in election_result.winners %}
+                <li class="list-group-item">
+                    {% if winner.image %}
+                    <img src="{{ winner.image.url }}" alt="{{ winner.name }}" class="img-thumbnail float-left mr-3">
+                    {% endif %}
+                    <strong>Name:</strong> {{ winner.name }}<br>
+                    <strong>Description:</strong> {{ winner.description }}<br>
+                    <strong>Party Affiliation:</strong> {{ winner.party_affiliation }}<br>
+                    <strong>Experience:</strong> {{ winner.experience }}<br>
+                    <strong>Votes Received:</strong> {{ winner.vote_count }} votes
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
